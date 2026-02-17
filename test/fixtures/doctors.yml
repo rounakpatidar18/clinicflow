@@ -1,9 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  specialization: MyString
+  clinic: one
+  name: Dr One
+  specialization: General
 
 two:
-  name: MyString
-  specialization: MyString
+  clinic: two
+  name: Dr Two
+  specialization: Pediatrics

@@ -2,21 +2,29 @@ require "test_helper"
 
 class AppointmentTest < ActiveSupport::TestCase
   def setup
+    @clinic = Clinic.create!(
+      name: "Clinic Test",
+      subdomain: "clinic-test"
+    )
+
     @doctor = Doctor.create!(
       name: "Dr. Test",
-      specialization: "General"
+      specialization: "General",
+      clinic: @clinic
     )
 
     @patient = Patient.create!(
       name: "John Doe",
-      phone: "9999999999"
+      phone: "9999999999",
+      clinic: @clinic
     )
 
     @appointment = Appointment.new(
       scheduled_at: 1.day.from_now,
       status: :scheduled,
       doctor: @doctor,
-      patient: @patient
+      patient: @patient,
+      clinic: @clinic
     )
   end
 
@@ -56,7 +64,8 @@ class AppointmentTest < ActiveSupport::TestCase
       scheduled_at: 2.days.from_now,
       status: :scheduled,
       doctor: @doctor,
-      patient: @patient
+      patient: @patient,
+      clinic: @clinic
     )
 
     assert_includes Appointment.upcoming, future

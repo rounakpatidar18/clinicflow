@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   def index
-    metrics = DashboardMetrics.new
+    metrics = DashboardMetrics.new(current_clinic.appointments)
 
     @total_appointments     = metrics.total_appointments
     @upcoming_appointments  = metrics.upcoming_appointments

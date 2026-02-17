@@ -2,9 +2,12 @@ require "test_helper"
 
 class DoctorTest < ActiveSupport::TestCase
   def setup
+    clinic = Clinic.create!(name: "Clinic Test", subdomain: "clinic-test")
+
     @doctor = Doctor.new(
       name: "Dr. Smith",
-      specialization: "Cardiology"
+      specialization: "Cardiology",
+      clinic: clinic
     )
   end
 

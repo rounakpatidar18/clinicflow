@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  clinic: one
   patient: one
   scheduled_at: <%= 1.day.from_now.change(sec: 0).to_fs(:db) %>
   status: scheduled
@@ -8,6 +9,7 @@ one:
   notes: MyText
 
 two:
+  clinic: two
   patient: two
   scheduled_at: <%= 2.days.from_now.change(sec: 0).to_fs(:db) %>
   status: completed

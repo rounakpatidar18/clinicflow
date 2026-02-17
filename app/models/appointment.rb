@@ -1,7 +1,8 @@
 class Appointment < ApplicationRecord
   belongs_to :doctor
   belongs_to :patient
-  
+  belongs_to :clinic
+
   has_many :payments, dependent: :restrict_with_error
   has_many :reminders, dependent: :restrict_with_error
   
