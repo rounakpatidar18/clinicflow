@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_17_133501) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_17_133502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,7 +60,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_133501) do
     t.index ["status"], name: "index_payments_on_status"
   end
 
+  create_table "reminders", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "reminder_type", default: 0, null: false
+    t.datetime "sent_at"
+    t.integer "status", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_reminders_on_appointment_id"
+    t.index ["reminder_type"], name: "index_reminders_on_reminder_type"
+    t.index ["sent_at"], name: "index_reminders_on_sent_at"
+    t.index ["status"], name: "index_reminders_on_status"
+  end
+
   add_foreign_key "appointments", "doctors"
   add_foreign_key "appointments", "patients"
   add_foreign_key "payments", "appointments"
+  add_foreign_key "reminders", "appointments"
 end
