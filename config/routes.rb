@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   resources :patients
   resources :appointments do
     resources :payments, except: [:index, :show]
+    resources :reminders, except: [:index, :show]
   end
 end

@@ -57,3 +57,41 @@
 <%= link_to "Back",
       appointments_path,
       class: "btn btn-secondary" %>
+<hr>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h3>Reminders</h3>
+  <%= link_to "Add Reminder",
+        new_appointment_reminder_path(@appointment),
+        class: "btn btn-primary btn-sm" %>
+</div>
+
+<table class="table table-bordered">
+  <thead class="table-light">
+    <tr>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Sent At</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointment.reminders.each do |reminder| %>
+      <tr>
+        <td><%= reminder.reminder_type.humanize %></td>
+        <td><%= reminder.status.humanize %></td>
+        <td><%= reminder.sent_at %></td>
+        <td>
+          <%= link_to "Edit",
+                edit_appointment_reminder_path(@appointment, reminder),
+                class: "btn btn-sm btn-warning" %>
+          <%= link_to "Delete",
+                appointment_reminder_path(@appointment, reminder),
+                method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

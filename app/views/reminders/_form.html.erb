@@ -1,0 +1,40 @@
+<%= form_with model: [@appointment, @reminder], local: true do |form| %>
+
+  <% if @reminder.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @reminder.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :reminder_type, class: "form-label" %>
+    <%= form.select :reminder_type,
+          Reminder.reminder_types.keys.map { |t| [t.humanize, t] },
+          {},
+          class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :status, class: "form-label" %>
+    <%= form.select :status,
+          Reminder.statuses.keys.map { |s| [s.humanize, s] },
+          {},
+          class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :sent_at, class: "form-label" %>
+    <%= form.datetime_local_field :sent_at,
+          class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-success" %>
+  <%= link_to "Back",
+        appointment_path(@appointment),
+        class: "btn btn-secondary" %>
+
+<% end %>
