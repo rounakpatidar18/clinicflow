@@ -1,7 +1,8 @@
 class Appointment < ApplicationRecord
   belongs_to :doctor
   belongs_to :patient
-
+  has_many :payments, dependent: :restrict_with_error
+  
   enum :status, {
     scheduled: 0,
     completed: 1,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_17_133500) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_17_133501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_133500) do
     t.index ["phone"], name: "index_patients_on_phone", unique: true
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.bigint "appointment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "paid_at"
+    t.string "payment_method", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_payments_on_appointment_id"
+    t.index ["paid_at"], name: "index_payments_on_paid_at"
+    t.index ["status"], name: "index_payments_on_status"
+  end
+
   add_foreign_key "appointments", "doctors"
   add_foreign_key "appointments", "patients"
+  add_foreign_key "payments", "appointments"
 end
