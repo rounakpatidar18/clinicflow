@@ -1,0 +1,45 @@
+<%= form_with model: [@appointment, @payment], local: true do |form| %>
+
+  <% if @payment.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @payment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :amount, class: "form-label" %>
+    <%= form.number_field :amount,
+          step: 0.01,
+          class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :payment_method, class: "form-label" %>
+    <%= form.text_field :payment_method,
+          class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :status, class: "form-label" %>
+    <%= form.select :status,
+          Payment.statuses.keys.map { |s| [s.humanize, s] },
+          {},
+          class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :paid_at, class: "form-label" %>
+    <%= form.datetime_local_field :paid_at,
+          class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-success" %>
+  <%= link_to "Back",
+        appointment_path(@appointment),
+        class: "btn btn-secondary" %>
+
+<% end %>
