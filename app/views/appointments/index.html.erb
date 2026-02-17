@@ -14,6 +14,7 @@
       <th>Phone</th>
       <th>Scheduled At</th>
       <th>Status</th>
+      <th>Doctor</th>
       <th></th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
             <%= appointment.status.humanize %>
           </span>
         </td>
+        <td><%= appointment.doctor.name %></td>
         <td>
           <%= link_to "Show", appointment, class: "btn btn-sm btn-info" %>
           <%= link_to "Edit", edit_appointment_path(appointment), class: "btn btn-sm btn-warning" %>

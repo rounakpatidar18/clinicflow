@@ -3,13 +3,15 @@
 one:
   patient_name: MyString
   patient_phone: MyString
-  scheduled_at: 2026-02-17 12:00:23
-  status: 1
+  scheduled_at: <%= 1.day.from_now.change(sec: 0).to_fs(:db) %>
+  status: scheduled
+  doctor: one
   notes: MyText
 
 two:
   patient_name: MyString
   patient_phone: MyString
-  scheduled_at: 2026-02-17 12:00:23
-  status: 1
+  scheduled_at: <%= 2.days.from_now.change(sec: 0).to_fs(:db) %>
+  status: completed
+  doctor: two
   notes: MyText

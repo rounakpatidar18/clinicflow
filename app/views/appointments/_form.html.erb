@@ -11,6 +11,16 @@
   <% end %>
 
   <div class="mb-3">
+    <%= form.label :doctor_id, "Doctor", class: "form-label" %>
+    <%= form.collection_select :doctor_id,
+          Doctor.alphabetical,
+          :id,
+          :name,
+          { prompt: "Select Doctor" },
+          class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
     <%= form.label :patient_name, class: "form-label" %>
     <%= form.text_field :patient_name, class: "form-control" %>
   </div>

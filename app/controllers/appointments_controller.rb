@@ -2,7 +2,7 @@ class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show edit update destroy]
 
   def index
-    @appointments = Appointment.order(scheduled_at: :asc)
+    @appointments = Appointment.includes(:doctor).order(scheduled_at: :asc)
   end
 
   def show
@@ -46,6 +46,7 @@ class AppointmentsController < ApplicationController
 
   def appointment_params
     params.require(:appointment).permit(
+      :doctor_id,
       :patient_name,
       :patient_phone,
       :scheduled_at,

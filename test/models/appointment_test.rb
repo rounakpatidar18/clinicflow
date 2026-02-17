@@ -2,11 +2,17 @@ require "test_helper"
 
 class AppointmentTest < ActiveSupport::TestCase
   def setup
+    @doctor = Doctor.create!(
+      name: "Dr. Test",
+      specialization: "General"
+    )
+
     @appointment = Appointment.new(
       patient_name: "John Doe",
       patient_phone: "9999999999",
       scheduled_at: 1.day.from_now,
-      status: :scheduled
+      status: :scheduled,
+      doctor: @doctor
     )
   end
 
@@ -34,6 +40,11 @@ class AppointmentTest < ActiveSupport::TestCase
     assert_not @appointment.valid?
   end
 
+  test "invalid without doctor" do
+    @appointment.doctor = nil
+    assert_not @appointment.valid?
+  end
+
   test "enum values are defined" do
     assert_equal 0, Appointment.statuses[:scheduled]
     assert_equal 1, Appointment.statuses[:completed]
@@ -46,14 +57,8 @@ class AppointmentTest < ActiveSupport::TestCase
       patient_name: "Future",
       patient_phone: "1111111111",
       scheduled_at: 2.days.from_now,
-      status: :scheduled
-    )
-
-    past = Appointment.create!(
-      patient_name: "Past",
-      patient_phone: "2222222222",
-      scheduled_at: 2.days.from_now,
-      status: :completed
+      status: :scheduled,
+      doctor: @doctor
     )
 
     assert_includes Appointment.upcoming, future

@@ -1,4 +1,4 @@
-class CreateAppointments < ActiveRecord::Migration[7.1]
+class CreateAppointments < ActiveRecord::Migration[8.1]
   def change
     create_table :appointments do |t|
       t.string :patient_name, null: false
