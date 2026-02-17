@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "home/index"
+  get "dashboard/index"
   root "appointments#index"
   resources :patients
   resources :appointments do
