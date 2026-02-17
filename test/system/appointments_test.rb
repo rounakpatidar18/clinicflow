@@ -7,19 +7,23 @@ class AppointmentsTest < ApplicationSystemTestCase
       specialization: "General"
     )
 
+    patient = Patient.create!(
+      name: "Jane Patient",
+      phone: "8888888888"
+    )
+
     visit appointments_path
 
     click_on "New Appointment"
 
     select doctor.name, from: "Doctor"
-    fill_in "Patient name", with: "John Doe"
-    fill_in "Patient phone", with: "9999999999"
+    select patient.name, from: "Patient"
     fill_in "Scheduled at", with: 1.day.from_now.strftime("%Y-%m-%dT%H:%M")
     select "Scheduled", from: "Status"
 
     click_on "Create Appointment"
 
     assert_text "Appointment created successfully."
-    assert_text "John Doe"
+    assert_text "Jane Patient"
   end
 end

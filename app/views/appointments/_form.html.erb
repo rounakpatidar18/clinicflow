@@ -21,13 +21,13 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :patient_name, class: "form-label" %>
-    <%= form.text_field :patient_name, class: "form-control" %>
-  </div>
-
-  <div class="mb-3">
-    <%= form.label :patient_phone, class: "form-label" %>
-    <%= form.text_field :patient_phone, class: "form-control" %>
+    <%= form.label :patient_id, "Patient", class: "form-label" %>
+    <%= form.collection_select :patient_id,
+          Patient.alphabetical,
+          :id,
+          :name,
+          { prompt: "Select Patient" },
+          class: "form-select" %>
   </div>
 
   <div class="mb-3">

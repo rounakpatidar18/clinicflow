@@ -1,5 +1,6 @@
 class Appointment < ApplicationRecord
   belongs_to :doctor
+  belongs_to :patient
 
   enum :status, {
     scheduled: 0,
@@ -7,12 +8,11 @@ class Appointment < ApplicationRecord
     cancelled: 2,
     no_show: 3
   }
-  
-  validates :patient_name, presence: true
-  validates :patient_phone, presence: true
+
   validates :scheduled_at, presence: true
   validates :status, presence: true
   validates :doctor, presence: true
+  validates :patient, presence: true
 
   validate :scheduled_at_cannot_be_in_the_past
 

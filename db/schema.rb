@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_17_065800) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_17_133500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,13 +18,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_065800) do
     t.datetime "created_at", null: false
     t.bigint "doctor_id", null: false
     t.text "notes"
-    t.string "patient_name", null: false
-    t.string "patient_phone", null: false
+    t.bigint "patient_id", null: false
     t.datetime "scheduled_at", null: false
     t.integer "status", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
-    t.index ["patient_phone"], name: "index_appointments_on_patient_phone"
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
     t.index ["scheduled_at"], name: "index_appointments_on_scheduled_at"
     t.index ["status"], name: "index_appointments_on_status"
   end
@@ -37,5 +36,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_17_065800) do
     t.index ["name"], name: "index_doctors_on_name"
   end
 
+  create_table "patients", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "date_of_birth"
+    t.string "email"
+    t.string "name", null: false
+    t.string "phone", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_patients_on_email"
+    t.index ["phone"], name: "index_patients_on_phone", unique: true
+  end
+
   add_foreign_key "appointments", "doctors"
+  add_foreign_key "appointments", "patients"
 end

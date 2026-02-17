@@ -1,16 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  patient_name: MyString
-  patient_phone: MyString
+  patient: one
   scheduled_at: <%= 1.day.from_now.change(sec: 0).to_fs(:db) %>
   status: scheduled
   doctor: one
   notes: MyText
 
 two:
-  patient_name: MyString
-  patient_phone: MyString
+  patient: two
   scheduled_at: <%= 2.days.from_now.change(sec: 0).to_fs(:db) %>
   status: completed
   doctor: two

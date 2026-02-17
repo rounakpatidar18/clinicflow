@@ -7,12 +7,16 @@ class AppointmentTest < ActiveSupport::TestCase
       specialization: "General"
     )
 
+    @patient = Patient.create!(
+      name: "John Doe",
+      phone: "9999999999"
+    )
+
     @appointment = Appointment.new(
-      patient_name: "John Doe",
-      patient_phone: "9999999999",
       scheduled_at: 1.day.from_now,
       status: :scheduled,
-      doctor: @doctor
+      doctor: @doctor,
+      patient: @patient
     )
   end
 
@@ -20,13 +24,8 @@ class AppointmentTest < ActiveSupport::TestCase
     assert @appointment.valid?
   end
 
-  test "invalid without patient_name" do
-    @appointment.patient_name = nil
-    assert_not @appointment.valid?
-  end
-
-  test "invalid without patient_phone" do
-    @appointment.patient_phone = nil
+  test "invalid without patient" do
+    @appointment.patient = nil
     assert_not @appointment.valid?
   end
 
@@ -54,11 +53,10 @@ class AppointmentTest < ActiveSupport::TestCase
 
   test "upcoming scope returns future appointments" do
     future = Appointment.create!(
-      patient_name: "Future",
-      patient_phone: "1111111111",
       scheduled_at: 2.days.from_now,
       status: :scheduled,
-      doctor: @doctor
+      doctor: @doctor,
+      patient: @patient
     )
 
     assert_includes Appointment.upcoming, future
