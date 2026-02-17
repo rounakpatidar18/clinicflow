@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get "home/index"
   root "appointments#index"
-  resources :appointments
   resources :patients
+  resources :appointments do
+    resources :payments, except: [:index, :show]
+  end
 end

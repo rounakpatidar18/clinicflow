@@ -1,9 +1,8 @@
 <h1>Appointment Details</h1>
 
-<div class="card">
+<div class="card mb-4">
   <div class="card-body">
     <p><strong>Patient:</strong> <%= @appointment.patient.name %></p>
-    <p><strong>Phone:</strong> <%= @appointment.patient.phone %></p>
     <p><strong>Doctor:</strong> <%= @appointment.doctor.name %></p>
     <p><strong>Scheduled At:</strong> <%= @appointment.scheduled_at.strftime("%d %b %Y %I:%M %p") %></p>
     <p><strong>Status:</strong> <%= @appointment.status.humanize %></p>
@@ -11,7 +10,50 @@
   </div>
 </div>
 
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h3>Payments</h3>
+  <%= link_to "Add Payment",
+        new_appointment_payment_path(@appointment),
+        class: "btn btn-primary btn-sm" %>
+</div>
+
+<table class="table table-bordered">
+  <thead class="table-light">
+    <tr>
+      <th>Amount</th>
+      <th>Method</th>
+      <th>Status</th>
+      <th>Paid At</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointment.payments.each do |payment| %>
+      <tr>
+        <td><%= number_to_currency(payment.amount) %></td>
+        <td><%= payment.payment_method %></td>
+        <td><%= payment.status.humanize %></td>
+        <td><%= payment.paid_at %></td>
+        <td>
+          <%= link_to "Edit",
+                edit_appointment_payment_path(@appointment, payment),
+                class: "btn btn-sm btn-warning" %>
+          <%= link_to "Delete",
+                appointment_payment_path(@appointment, payment),
+                method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <br>
 
-<%= link_to "Edit", edit_appointment_path(@appointment), class: "btn btn-warning" %>
-<%= link_to "Back", appointments_path, class: "btn btn-secondary" %>
+<%= link_to "Edit Appointment",
+      edit_appointment_path(@appointment),
+      class: "btn btn-warning" %>
+<%= link_to "Back",
+      appointments_path,
+      class: "btn btn-secondary" %>
