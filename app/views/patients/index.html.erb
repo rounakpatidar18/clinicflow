@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Patients</h1>
+  <%= link_to "New Patient", new_patient_path, class: "btn btn-primary" %>
+</div>
+
+<% if notice %>
+  <div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<% if alert %>
+  <div class="alert alert-danger"><%= alert %></div>
+<% end %>
+
+<table class="table table-striped table-bordered">
+  <thead class="table-light">
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Date of Birth</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= patient.name %></td>
+        <td><%= patient.phone %></td>
+        <td><%= patient.email %></td>
+        <td><%= patient.date_of_birth %></td>
+        <td>
+          <%= link_to "Show", patient, class: "btn btn-sm btn-info" %>
+          <%= link_to "Edit", edit_patient_path(patient), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Delete", patient,
+                method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
