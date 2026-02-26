@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  appointment: one
+  reminder_type: 1
+  sent_at: 2026-02-17 18:30:11
+  status: 1
+
+two:
+  appointment: two
+  reminder_type: 1
+  sent_at: 2026-02-17 18:30:11
+  status: 1

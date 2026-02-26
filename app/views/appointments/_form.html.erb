@@ -1,0 +1,54 @@
+<%= form_with model: @appointment, local: true do |form| %>
+
+  <% if @appointment.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @appointment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :doctor_id, "Doctor", class: "form-label" %>
+    <%= form.collection_select :doctor_id,
+          Doctor.alphabetical,
+          :id,
+          :name,
+          { prompt: "Select Doctor" },
+          class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :patient_id, "Patient", class: "form-label" %>
+    <%= form.collection_select :patient_id,
+          Patient.alphabetical,
+          :id,
+          :name,
+          { prompt: "Select Patient" },
+          class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :scheduled_at, class: "form-label" %>
+    <%= form.datetime_local_field :scheduled_at, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :status, class: "form-label" %>
+    <%= form.select :status,
+          Appointment.statuses.keys.map { |s| [s.humanize, s] },
+          {},
+          class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :notes, class: "form-label" %>
+    <%= form.text_area :notes, class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-success" %>
+  <%= link_to "Back", appointments_path, class: "btn btn-secondary" %>
+
+<% end %>

@@ -1,0 +1,36 @@
+class Appointment < ApplicationRecord
+  belongs_to :doctor
+  belongs_to :patient
+  belongs_to :clinic
+
+  has_many :payments, dependent: :restrict_with_error
+  has_many :reminders, dependent: :restrict_with_error
+  
+  enum :status, {
+    scheduled: 0,
+    completed: 1,
+    cancelled: 2,
+    no_show: 3
+  }
+
+  validates :scheduled_at, presence: true
+  validates :status, presence: true
+  validates :doctor, presence: true
+  validates :patient, presence: true
+
+  validate :scheduled_at_cannot_be_in_the_past
+
+  scope :upcoming, -> { where("scheduled_at >= ?", Time.current).order(:scheduled_at) }
+  scope :past, -> { where("scheduled_at < ?", Time.current).order(scheduled_at: :desc) }
+  scope :by_status, ->(status) { where(status: statuses[status]) if status.present? }
+
+  private
+
+  def scheduled_at_cannot_be_in_the_past
+    return if scheduled_at.blank?
+
+    if scheduled_at < Time.current
+      errors.add(:scheduled_at, "cannot be in the past")
+    end
+  end
+end
