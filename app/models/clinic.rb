@@ -6,4 +6,6 @@ class Clinic < ApplicationRecord
 
   validates :name, presence: true
   validates :subdomain, presence: true, uniqueness: true
+
+  scope :alphabetical, -> { order(:name) }
 end

@@ -31,6 +31,16 @@
   </div>
 
   <div class="mb-3">
+    <%= form.label :clinic_id, "Clinic", class: "form-label" %>
+    <%= form.collection_select :clinic_id,
+          Clinic.alphabetical,
+          :id,
+          :name,
+          { prompt: "Select Clinic" },
+          class: "form-select" %>
+  </div>
+  
+  <div class="mb-3">
     <%= form.label :scheduled_at, class: "form-label" %>
     <%= form.datetime_local_field :scheduled_at, class: "form-control" %>
   </div>
