@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root "appointments#index"
   resources :patients
   resources :appointments do
-    resources :payments, except: [:index, :show]
-    resources :reminders, except: [:index, :show]
+    resources :payments, except: [ :index, :show ]
+    resources :reminders, except: [ :index, :show ]
   end
 end
