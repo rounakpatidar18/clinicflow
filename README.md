@@ -148,9 +148,8 @@ git clone rounakpatidar18/clinicflow
 cd clinic_ops
 
 2️⃣ Install Dependencies also Install Node Dependencies
+rails assets:precompile
 bundle install
-npm install
-npm install --save-dev nodemon
 
 3️⃣ Setup Database
 
